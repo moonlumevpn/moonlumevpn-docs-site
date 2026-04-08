@@ -50,7 +50,7 @@ const config: Config = {
         docs: {
           sidebarPath: './sidebars.ts',
           editUrl:
-            'https://github.com/moonlumevpn/moonlumevpn-docs/tree/main/',
+            'https://github.com/moonlumevpn/moonlumevpn-docs/tree/production/',
         },
         blog: false,
         theme: {

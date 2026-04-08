@@ -44,6 +44,13 @@ jobs:
             mv external-docs/i18n ./i18n
           fi
 
+      - name: Copy registry links for static endpoint
+        working-directory: external-docs
+        run: |
+          test -f registry/links.json
+          mkdir -p ../static
+          cp registry/links.json ../static/links.json
+
       - name: Install dependencies
         run: npm ci
 

@@ -63,6 +63,6 @@ jobs:
         run: npm run deploy
         env:
           GIT_USER: github-actions[bot]
-          GIT_PASSWD: ${{ secrets.GITHUB_TOKEN }}
+          GIT_PASS: ${{ secrets.GITHUB_TOKEN }}
           USE_SSH: false
           CURRENT_BRANCH: ${{ github.ref_name }}

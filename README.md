@@ -1,25 +1,33 @@
-# MoonlumeVPN Documentation Platform
+<p align="center">
+  <h1 align="center">MoonlumeVPN Docs Site</h1>
+  <p align="center"><b>Docusaurus engine for MoonlumeVPN documentation</b></p>
+  <p align="center">
+    External docs content in, static site out, auto-deployed to GitHub Pages.
+  </p>
+  <p align="center">
+    <img src="https://img.shields.io/badge/framework-Docusaurus-2ea44f" alt="Framework"/>
+    <img src="https://img.shields.io/badge/runtime-Node.js-339933" alt="Runtime"/>
+    <img src="https://img.shields.io/badge/deploy-GitHub%20Pages-222222" alt="Deploy"/>
+    <img src="https://img.shields.io/badge/i18n-ru%20%7C%20en-blue" alt="Locales"/>
+    <img src="https://img.shields.io/badge/domain-docs.moonlumevpn.ru-0a66c2" alt="Domain"/>
+  </p>
+  <p align="center">
+    <a href="#-quick-start">Quick Start</a> •
+    <a href="#-architecture">Architecture</a> •
+    <a href="#-cicd-workflow">CI/CD</a> •
+    <a href="#-secrets-and-variables">Secrets</a> •
+    <a href="#-dns">DNS</a>
+  </p>
+</p>
 
-This repository is the **docs engine** (`moonlumevpn-docs-site`) built with Docusaurus.
-
-It pulls Markdown docs from the **content repo** (`moonlumevpn-docs`) during CI, builds a static site, and deploys to GitHub Pages.
+---
 
 Production URL: `https://docs.moonlumevpn.ru`
 
-## Architecture
+This repository (`moonlumevpn-docs-site`) is the docs engine.  
+During CI, it pulls Markdown docs from `moonlumevpn-docs`, builds the static site, and deploys to `gh-pages`.
 
-Two repositories are used:
-
-1. `moonlumevpn-docs`
-- Source of truth for Markdown docs.
-- Multi-language docs are stored in `/docs` and `/i18n/<locale>/docusaurus-plugin-content-docs/current`.
-
-2. `moonlumevpn-docs-site` (this repo)
-- Docusaurus engine and theme.
-- CI clones `moonlumevpn-docs` and replaces local `/docs` before build.
-- Deploys to `gh-pages`.
-
-## Local Development
+## Quick Start
 
 Install dependencies:
 
@@ -27,19 +35,32 @@ Install dependencies:
 npm install
 ```
 
-Start dev server:
+Run local dev server:
 
 ```bash
 npm start
 ```
 
-Build static output:
+Create production build:
 
 ```bash
 npm run build
 ```
 
-## CI/CD Workflow (This Repo)
+## Architecture
+
+Two repositories work together:
+
+1. `moonlumevpn-docs`
+- Source of truth for Markdown content.
+- Multilingual docs live in `/docs` and `/i18n/<locale>/docusaurus-plugin-content-docs/current`.
+
+2. `moonlumevpn-docs-site` (this repo)
+- Docusaurus engine and theme.
+- CI clones `moonlumevpn-docs` and replaces local `/docs` and `/i18n` before build.
+- Deploys output to `gh-pages`.
+
+## CI/CD Workflow
 
 Workflow file: `.github/workflows/deploy.yml`
 
@@ -48,15 +69,15 @@ Triggers:
 - `repository_dispatch` with type `docs-update`
 - Manual run (`workflow_dispatch`)
 
-Pipeline:
-1. Checkout engine repo
+Pipeline steps:
+1. Checkout docs site repo
 2. Clone `moonlumevpn-docs`
 3. Replace local `/docs` and `/i18n` with external docs content
 4. `npm ci`
 5. `npm run build`
 6. `npm run deploy` to `gh-pages`
 
-## Multilanguage Content Layout (In `moonlumevpn-docs`)
+## Content Layout (`moonlumevpn-docs`)
 
 ```text
 moonlumevpn-docs/
@@ -72,32 +93,32 @@ moonlumevpn-docs/
 └─ README.md
 ```
 
-Configured locales in this engine repo:
+Configured locales in this engine:
 - `ru` (default)
 - `en`
 
-## Required GitHub Settings
+## Required GitHub Pages Settings
 
 In `moonlumevpn-docs-site`:
 - Settings -> Pages -> Source: `Deploy from a branch`
 - Branch: `gh-pages` (root)
 - Custom domain: `docs.moonlumevpn.ru`
 
-## Secrets
+## Secrets And Variables
 
 In `moonlumevpn-docs-site`:
-- Optional: `DOCS_REPO_TOKEN` if `moonlumevpn-docs` is private
-- Repository Variables for DocSearch:
+- Optional secret: `DOCS_REPO_TOKEN` (required if `moonlumevpn-docs` is private)
+- Repository variables for DocSearch:
   - `DOCSEARCH_APP_ID`
   - `DOCSEARCH_API_KEY`
   - `DOCSEARCH_INDEX_NAME`
 
 In `moonlumevpn-docs`:
-- `REPO_TOKEN` with access to trigger repository dispatch in `moonlumevpn-docs-site`
+- Secret: `REPO_TOKEN` with permission to trigger `repository_dispatch` in `moonlumevpn-docs-site`
 
-## Trigger Workflow (Content Repo)
+## Trigger From Content Repo
 
-Create this in `moonlumevpn-docs/.github/workflows/trigger.yml`:
+Create `moonlumevpn-docs/.github/workflows/trigger.yml`:
 
 ```yaml
 name: Trigger Docs Site Rebuild
@@ -119,18 +140,16 @@ jobs:
           -d '{"event_type":"docs-update"}'
 ```
 
-If your docs repo uses a different default branch, update `branches: [production]` accordingly.
+If your content repo uses a different main branch, update `branches: [production]`.
 
 ## Search (Algolia DocSearch)
 
-This site is configured to use Algolia DocSearch (DocSearch JS) via Docusaurus built-in integration.
-
-When the following variables are set, the navbar search is enabled automatically:
+Docusaurus DocSearch is enabled automatically when all variables are present:
 - `DOCSEARCH_APP_ID`
 - `DOCSEARCH_API_KEY`
 - `DOCSEARCH_INDEX_NAME`
 
-If variables are missing, search UI is hidden until configured.
+If any variable is missing, search UI stays hidden.
 
 ## DNS
 

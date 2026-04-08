@@ -115,7 +115,7 @@ const config: Config = {
           items: [
             {
               label: 'Введение',
-              to: '/docs/intro',
+              to: '/docs/legal/privacy_policy/',
             },
           ],
         },

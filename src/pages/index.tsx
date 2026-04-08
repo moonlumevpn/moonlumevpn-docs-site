@@ -29,7 +29,7 @@ export default function Home(): ReactNode {
                 <span>Поддержка через Telegram</span>
               </div>
               <div className={styles.heroActions}>
-                <Link className="button button--lg button--secondary" to="/docs/intro">
+                <Link className="button button--lg button--secondary" to="/docs/legal/privacy_policy/">
                   Открыть документацию
                 </Link>
                 <a

@@ -18,3 +18,8 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Local external-docs sync artifacts
+/external-docs/
+/i18n/
+/docs/

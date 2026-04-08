@@ -1,0 +1,15 @@
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="256" height="256" rx="64" fill="#0E1525"/>
+  <circle cx="128" cy="128" r="88" fill="url(#moonGlow)"/>
+  <circle cx="142" cy="112" r="56" fill="#F3F7FF"/>
+  <circle cx="126" cy="112" r="56" fill="#0E1525"/>
+  <circle cx="95" cy="86" r="6" fill="#8CD8FF"/>
+  <circle cx="175" cy="152" r="5" fill="#8CD8FF"/>
+  <circle cx="170" cy="84" r="4" fill="#8CD8FF"/>
+  <defs>
+    <radialGradient id="moonGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(128 128) rotate(90) scale(88)">
+      <stop stop-color="#2A3D67"/>
+      <stop offset="1" stop-color="#121B31"/>
+    </radialGradient>
+  </defs>
+</svg>

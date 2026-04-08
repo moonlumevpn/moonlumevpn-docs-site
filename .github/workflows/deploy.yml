@@ -1,0 +1,68 @@
+name: Build & Deploy Docs
+
+on:
+  push:
+    branches: [production]
+  repository_dispatch:
+    types: [docs-update]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout engine repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Clone docs repo
+        run: |
+          if [ -n "${{ secrets.DOCS_REPO_TOKEN }}" ]; then
+            git clone https://x-access-token:${{ secrets.DOCS_REPO_TOKEN }}@github.com/moonlumevpn/moonlumevpn-docs.git external-docs
+          else
+            git clone https://github.com/moonlumevpn/moonlumevpn-docs.git external-docs
+          fi
+
+      - name: Replace docs and i18n folders
+        run: |
+          rm -rf docs
+          test -d external-docs/docs
+          mv external-docs/docs ./docs
+          rm -rf i18n
+          if [ -d external-docs/i18n ]; then
+            mv external-docs/i18n ./i18n
+          fi
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+        env:
+          DOCSEARCH_APP_ID: ${{ vars.DOCSEARCH_APP_ID }}
+          DOCSEARCH_API_KEY: ${{ vars.DOCSEARCH_API_KEY }}
+          DOCSEARCH_INDEX_NAME: ${{ vars.DOCSEARCH_INDEX_NAME }}
+
+      - name: Configure Git identity
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Deploy to GitHub Pages
+        run: npm run deploy
+        env:
+          GIT_USER: github-actions[bot]
+          GIT_PASSWD: ${{ secrets.GITHUB_TOKEN }}
+          USE_SSH: false
+          CURRENT_BRANCH: ${{ github.ref_name }}

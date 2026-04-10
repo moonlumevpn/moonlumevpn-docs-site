@@ -25,7 +25,7 @@
 Production URL: `https://docs.moonlumevpn.ru`
 
 This repository (`moonlumevpn-docs-site`) is the docs engine.  
-During CI, it pulls Markdown docs from `moonlumevpn-docs`, builds the static site, and deploys to `gh-pages`.
+During CI, it pulls Markdown docs from `moonlumevpn-docs`, builds the static site, and deploys via GitHub Actions Pages.
 
 ## Quick Start
 
@@ -58,7 +58,7 @@ Two repositories work together:
 2. `moonlumevpn-docs-site` (this repo)
 - Docusaurus engine and theme.
 - CI clones `moonlumevpn-docs` and replaces local `/docs` and `/i18n` before build.
-- Deploys output to `gh-pages`.
+- Uploads `build/` as a Pages artifact and deploys with `actions/deploy-pages`.
 
 ## CI/CD Workflow
 
@@ -75,7 +75,8 @@ Pipeline steps:
 3. Replace local `/docs` and `/i18n` with external docs content
 4. `npm ci`
 5. `npm run build`
-6. `npm run deploy` to `gh-pages`
+6. Upload `build/` via `actions/upload-pages-artifact`
+7. Deploy via `actions/deploy-pages`
 
 ## Content Layout (`moonlumevpn-docs`)
 
@@ -100,8 +101,7 @@ Configured locales in this engine:
 ## Required GitHub Pages Settings
 
 In `moonlumevpn-docs-site`:
-- Settings -> Pages -> Source: `Deploy from a branch`
-- Branch: `gh-pages` (root)
+- Settings -> Pages -> Source: `GitHub Actions`
 - Custom domain: `docs.moonlumevpn.ru`
 
 ## Secrets And Variables

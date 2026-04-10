@@ -27,11 +27,9 @@ const config: Config = {
   baseUrl: '/',
   trailingSlash: true,
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
+  // Repository metadata used by Docusaurus (for links, etc.).
   organizationName: 'moonlumevpn', // Usually your GitHub org/user name.
   projectName: 'moonlumevpn-docs-site', // Usually your repo name.
-  deploymentBranch: 'gh-pages',
 
   onBrokenLinks: 'throw',
 

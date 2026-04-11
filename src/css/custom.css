@@ -43,7 +43,6 @@
   border-bottom-color: rgba(173, 208, 255, 0.16);
 }
 
-/* Strong visual separation for code in docs content */
 .theme-code-block,
 div[class*='codeBlockContainer_'] {
   border: 1px solid rgba(22, 44, 84, 0.16);
@@ -84,7 +83,6 @@ div[class*='codeBlockContainer_'] code {
   border-color: rgba(126, 177, 255, 0.3);
 }
 
-/* Keep footer below content on all pages */
 html,
 body,
 #__docusaurus {
@@ -104,4 +102,34 @@ body {
 
 .main-wrapper {
   flex: 1 0 auto;
+}
+
+@media (max-width: 996px) {
+  /* Keep mobile drawer above page/header layers */
+  .navbar-sidebar {
+    z-index: 1001;
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  /* Pin brand row and keep menu content below it */
+  .navbar-sidebar__brand {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: var(--ifm-navbar-background-color);
+  }
+
+  /* Ensure the panel area fills remaining height and scrolls */
+  .navbar-sidebar__items {
+    height: calc(100vh - var(--ifm-navbar-height));
+    height: calc(100dvh - var(--ifm-navbar-height));
+  }
+
+  .navbar-sidebar__item {
+    height: calc(100vh - var(--ifm-navbar-height));
+    height: calc(100dvh - var(--ifm-navbar-height));
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }

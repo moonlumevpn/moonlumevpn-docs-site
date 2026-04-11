@@ -50,6 +50,17 @@ jobs:
             mv external-docs/i18n ./i18n
           fi
 
+      - name: Verify copied docs content
+        run: |
+          echo "external-docs branch:"
+          git -C external-docs branch --show-current || true
+          echo "external-docs commit:"
+          git -C external-docs rev-parse --short HEAD || true
+          echo "Verify docs/index.md exists after copy:"
+          test -f docs/index.md || (echo "docs/index.md missing after copy" && exit 1)
+          echo "docs/index.md (first 40 lines):"
+          sed -n '1,40p' docs/index.md
+
       - name: Copy registry links for static endpoint
         working-directory: external-docs
         run: |

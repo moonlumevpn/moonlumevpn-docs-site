@@ -81,8 +81,7 @@ const config: Config = {
       },
       items: [
         {
-          type: 'docSidebar',
-          sidebarId: 'tutorialSidebar',
+          to: '/docs/intro/',
           position: 'left',
           label: 'Документация',
         },

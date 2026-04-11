@@ -111,7 +111,7 @@ const config: Config = {
           title: 'Документация',
           items: [
             {
-              label: 'Введение',
+              label: 'Политика конфиденциальности',
               to: '/docs/legal/privacy_policy/',
             },
           ],

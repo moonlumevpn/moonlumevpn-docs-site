@@ -83,13 +83,13 @@ Pipeline steps:
 ```text
 moonlumevpn-docs/
 ├─ docs/                                # default locale (ru)
-│  ├─ intro.md
+│  ├─ index.md
 │  └─ ...
 ├─ i18n/
 │  └─ en/
 │     └─ docusaurus-plugin-content-docs/
 │        └─ current/
-│           ├─ intro.md
+│           ├─ index.md
 │           └─ ...
 └─ README.md
 ```

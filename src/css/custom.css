@@ -1,14 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap');
 
 :root {
-  --ifm-color-primary: #1957d2;
-  --ifm-color-primary-dark: #174ec0;
-  --ifm-color-primary-darker: #1549b5;
-  --ifm-color-primary-darkest: #113c96;
-  --ifm-color-primary-light: #2160e1;
-  --ifm-color-primary-lighter: #2b69e6;
-  --ifm-color-primary-lightest: #4e82eb;
-  --ifm-background-color: #f6f8fc;
+  --ifm-color-primary: #1f6dff;
+  --ifm-color-primary-dark: #0f52d6;
+  --ifm-color-primary-darker: #0d49bf;
+  --ifm-color-primary-darkest: #0a3a9a;
+  --ifm-color-primary-light: #3b7eff;
+  --ifm-color-primary-lighter: #5a92ff;
+  --ifm-color-primary-lightest: #8fb2ff;
+  --ifm-background-color: #f4f8ff;
   --ifm-navbar-background-color: rgba(246, 248, 252, 0.86);
   --ifm-font-family-base: 'Manrope', 'Segoe UI', sans-serif;
   --ifm-heading-font-family: 'Manrope', 'Segoe UI', sans-serif;
@@ -31,7 +31,7 @@
 
 .navbar {
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(23, 41, 77, 0.1);
+  border-bottom: 1px solid #d6e2f5;
 }
 
 .navbar__logo img {
@@ -45,14 +45,14 @@
 
 .theme-code-block,
 div[class*='codeBlockContainer_'] {
-  border: 1px solid rgba(22, 44, 84, 0.16);
+  border: 1px solid #d6e2f5;
   border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(20, 43, 88, 0.08);
+  box-shadow: 0 8px 24px rgba(31, 109, 255, 0.08);
 }
 
 .theme-code-block pre,
 div[class*='codeBlockContainer_'] pre {
-  background: #eef3ff !important;
+  background: #eef4ff !important;
 }
 
 .theme-code-block code,
@@ -61,8 +61,8 @@ div[class*='codeBlockContainer_'] code {
 }
 
 .markdown code {
-  background: rgba(25, 87, 210, 0.1);
-  border: 1px solid rgba(25, 87, 210, 0.18);
+  background: rgba(31, 109, 255, 0.1);
+  border: 1px solid rgba(31, 109, 255, 0.18);
   border-radius: 6px;
   padding: 0.08rem 0.32rem;
 }

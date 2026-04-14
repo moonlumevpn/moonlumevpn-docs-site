@@ -71,7 +71,9 @@ const config: Config = {
         }
       : undefined,
     colorMode: {
-      respectPrefersColorScheme: true,
+      defaultMode: 'light',
+      disableSwitch: true,
+      respectPrefersColorScheme: false,
     },
     navbar: {
       title: 'MoonlumeVPN Docs',
@@ -93,15 +95,6 @@ const config: Config = {
               },
             ]
           : []),
-        {
-          type: 'localeDropdown',
-          position: 'right',
-        },
-        {
-          href: 'https://github.com/moonlumevpn/moonlumevpn-docs-site',
-          label: 'GitHub',
-          position: 'right',
-        },
       ],
     },
     footer: {

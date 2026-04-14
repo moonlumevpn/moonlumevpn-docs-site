@@ -1,126 +1,173 @@
 import type {ReactNode} from 'react';
-import clsx from 'clsx';
 import Link from '@docusaurus/Link';
 import Layout from '@theme/Layout';
 import Heading from '@theme/Heading';
+import SearchBar from '@theme/SearchBar';
+import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 
 import styles from './index.module.css';
 
+type DocCard = {
+  title: string;
+  description: string;
+  href: string;
+  badge: string;
+  keywords: string[];
+};
+
+type DocGroup = {
+  label: string;
+  title: string;
+  description: string;
+  cards: DocCard[];
+};
+
+const DOC_GROUPS: DocGroup[] = [
+  {
+    label: 'Начать здесь',
+    title: 'Основная документация',
+    description: 'Главные точки входа для настройки и быстрого старта.',
+    cards: [
+      {
+        title: 'Главная документации',
+        description: 'Краткий обзор пространства документации MoonlumeVPN.',
+        href: '/docs/',
+        badge: 'Корень',
+        keywords: ['docs', 'home', 'overview', 'root'],
+      },
+      {
+        title: 'Установка и подключение',
+        description: 'Пошаговые сценарии настройки для устройств и клиентов.',
+        href: '/docs/install/',
+        badge: 'Старт',
+        keywords: ['install', 'setup', 'connect', 'start', 'vpn'],
+      },
+    ],
+  },
+  {
+    label: 'Политики',
+    title: 'Аккаунт и право',
+    description: 'Данные о платежах, условиях использования и конфиденциальности.',
+    cards: [
+      {
+        title: 'Платежи',
+        description: 'Как работают оплата подписки и продление.',
+        href: '/docs/payments/',
+        badge: 'Оплата',
+        keywords: ['payments', 'billing', 'subscription', 'pay'],
+      },
+      {
+        title: 'Юридические документы',
+        description: 'Политика конфиденциальности, оферта, реферальные правила и условия.',
+        href: '/docs/category/юридические-документы/',
+        badge: 'Юр.',
+        keywords: ['legal', 'privacy', 'offer', 'terms', 'referral'],
+      },
+    ],
+  },
+];
+
 export default function Home(): ReactNode {
+  const {
+    siteConfig: {themeConfig},
+  } = useDocusaurusContext();
+  const hasDocSearch = Boolean(themeConfig.algolia);
+
   return (
-    <Layout title="Moonlume VPN Docs" description="Документация Moonlume VPN.">
+    <Layout
+      title="Привет, чем я могу помочь?"
+      description="Ищите в документации MoonlumeVPN и быстро переходите к нужному разделу.">
       <main className={styles.page}>
-        <section className={clsx('hero hero--primary', styles.heroBanner)}>
+        <section className={styles.hero}>
           <div className="container">
             <div className={styles.heroInner}>
-              <p className={styles.eyebrow}>Документация Moonlume VPN</p>
+              <p className={styles.eyebrow}>Документация MoonlumeVPN</p>
               <Heading as="h1" className={styles.heroTitle}>
-                Moonlume VPN - безопасный и приватный доступ в интернет
+                Привет, чем я могу помочь?
               </Heading>
-              <p className={styles.heroSubtitle}>
-                VPN помогает защитить трафик, скрыть IP и безопасно пользоваться
-                интернетом в любой сети. Здесь собрано понятное объяснение, как
-                работает VPN, зачем он нужен и как использовать Moonlume VPN в
-                повседневных задачах.
+              <p className={styles.heroLead}>
+                Начните поиск ниже.
               </p>
-              <div className={styles.heroMeta}>
-                <span>RU-first документация</span>
-                <span>Простой onboarding</span>
-                <span>Поддержка через Telegram</span>
+              <p className={styles.heroCopy}>
+                Сначала откройте нужный раздел, а затем переходите к конкретной
+                инструкции без лишнего шума.
+              </p>
+
+              <div className={styles.searchPanel}>
+                {hasDocSearch ? (
+                  <SearchBar />
+                ) : (
+                  <Link className={styles.searchFallback} to="/docs/">
+                    Открыть документацию
+                  </Link>
+                )}
               </div>
-              <div className={styles.heroActions}>
-                <Link className="button button--lg button--secondary" to="/docs/legal/privacy_policy/">
-                  Открыть документацию
+
+              <div className={styles.quickFilters} aria-label="Быстрые ссылки">
+                <Link className={styles.quickFilter} to="/docs/">
+                  документация
                 </Link>
-                <a
-                  className="button button--lg button--outline button--secondary"
-                  href="https://web.moonlumevpn.ru"
-                  target="_blank"
-                  rel="noreferrer">
-                  Перейти в Web App
-                </a>
+                <Link className={styles.quickFilter} to="/docs/install/">
+                  установка
+                </Link>
+                <Link className={styles.quickFilter} to="/docs/payments/">
+                  платежи
+                </Link>
+                <Link
+                  className={styles.quickFilter}
+                  to="/docs/category/юридические-документы/">
+                  юридические
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
-        <section className={styles.linksSection}>
+        <section className={styles.sections}>
           <div className="container">
-            <div className={styles.sectionHead}>
-              <p className={styles.sectionKicker}>Каналы доступа</p>
-              <Heading as="h2">Все сервисы Moonlume в одном месте</Heading>
+            <div className={styles.sectionHeader}>
+              <p className={styles.sectionKicker}>Обзор разделов</p>
+              <Heading as="h2" className={styles.sectionTitle}>
+                Ссылки на основные разделы документации
+              </Heading>
+              <p className={styles.sectionLead}>
+                Это основные входные точки, сгруппированные по тому, что обычно
+                нужно в первую очередь.
+              </p>
             </div>
-            <div className="row">
-              <div className="col col--4">
-                <a className={styles.linkCard} href="https://moonlumevpn.ru" target="_blank" rel="noreferrer">
-                  <Heading as="h3">Сайт</Heading>
-                  <p>Общая информация о продукте и тарифах.</p>
-                  <span>moonlumevpn.ru</span>
-                </a>
-              </div>
-              <div className="col col--4">
-                <a className={styles.linkCard} href="https://web.moonlumevpn.ru" target="_blank" rel="noreferrer">
-                  <Heading as="h3">Веб-приложение</Heading>
-                  <p>Личный кабинет и управление подпиской.</p>
-                  <span>web.moonlumevpn.ru</span>
-                </a>
-              </div>
-              <div className="col col--4">
-                <a className={styles.linkCard} href="https://t.me/moonlumevpn_bot" target="_blank" rel="noreferrer">
-                  <Heading as="h3">Telegram-бот</Heading>
-                  <p>Быстрый старт и подключение через Telegram.</p>
-                  <span>@moonlumevpn_bot</span>
-                </a>
-              </div>
-              <div className="col col--6">
-                <a className={styles.linkCard} href="https://t.me/moonlumevpn_news" target="_blank" rel="noreferrer">
-                  <Heading as="h3">Новости</Heading>
-                  <p>Обновления сервиса и важные объявления.</p>
-                  <span>@moonlumevpn_news</span>
-                </a>
-              </div>
-              <div className="col col--6">
-                <a className={styles.linkCard} href="https://t.me/moonlumevpn_support_bot" target="_blank" rel="noreferrer">
-                  <Heading as="h3">Поддержка</Heading>
-                  <p>Помощь по настройке и решению проблем.</p>
-                  <span>@moonlumevpn_support_bot</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
 
-        <section className={styles.valuesSection}>
-          <div className="container">
-            <div className={styles.sectionHead}>
-              <p className={styles.sectionKicker}>Почему это удобно</p>
-              <Heading as="h2">Понятный формат для ежедневного использования</Heading>
-            </div>
-            <div className={styles.valuesGrid}>
-              <article className={styles.valueItem}>
-                <p className={styles.valueIndex}>01</p>
-                <Heading as="h3">Безопасность трафика</Heading>
-                <p>
-                  Шифрование снижает риск перехвата данных в публичных и
-                  незащищенных сетях.
-                </p>
-              </article>
-              <article className={styles.valueItem}>
-                <p className={styles.valueIndex}>02</p>
-                <Heading as="h3">Приватность</Heading>
-                <p>
-                  Скрытие IP помогает минимизировать отслеживание и повышает
-                  конфиденциальность.
-                </p>
-              </article>
-              <article className={styles.valueItem}>
-                <p className={styles.valueIndex}>03</p>
-                <Heading as="h3">Простой старт</Heading>
-                <p>
-                  Документация объясняет подключение пошагово: от выбора
-                  платформы до проверки работы VPN.
-                </p>
-              </article>
+            <div className={styles.groupList}>
+              {DOC_GROUPS.map(group => (
+                <section key={group.title} className={styles.groupBlock}>
+                  <div className={styles.groupHeader}>
+                    <p className={styles.groupLabel}>{group.label}</p>
+                    <div>
+                      <Heading as="h3" className={styles.groupTitle}>
+                        {group.title}
+                      </Heading>
+                      <p className={styles.groupDescription}>{group.description}</p>
+                    </div>
+                  </div>
+
+                  <div className={styles.cardGrid}>
+                    {group.cards.map(card => (
+                      <Link key={card.href} className={styles.docCard} to={card.href}>
+                        <div className={styles.docCardTop}>
+                          <span className={styles.docCardBadge}>{card.badge}</span>
+                          <span className={styles.docCardArrow} aria-hidden="true">
+                            ↗
+                          </span>
+                        </div>
+                        <Heading as="h4" className={styles.docCardTitle}>
+                          {card.title}
+                        </Heading>
+                        <p className={styles.docCardDescription}>{card.description}</p>
+                        <span className={styles.docCardFooter}>Открыть раздел</span>
+                      </Link>
+                    ))}
+                  </div>
+                </section>
+              ))}
             </div>
           </div>
         </section>

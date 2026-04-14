@@ -13,7 +13,7 @@ const hasDocSearchConfig = Boolean(
 const config: Config = {
   title: 'MoonlumeVPN Docs',
   tagline: 'Документация MoonlumeVPN',
-  favicon: 'img/moonlume-icon.svg',
+  favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
   future: {
@@ -60,7 +60,7 @@ const config: Config = {
 
   themeConfig: {
     // Replace with your project's social card
-    image: 'img/docusaurus-social-card.jpg',
+    image: 'img/moonlumevpn-social-card.png',
     algolia: hasDocSearchConfig
       ? {
           appId: docsearchAppId!,
@@ -77,7 +77,7 @@ const config: Config = {
       title: 'MoonlumeVPN Docs',
       logo: {
         alt: 'MoonlumeVPN',
-        src: 'img/moonlume-icon.svg',
+        src: 'img/moonlumevpn-logo.png',
       },
       items: [
         {

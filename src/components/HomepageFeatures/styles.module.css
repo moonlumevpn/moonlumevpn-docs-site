@@ -3,11 +3,6 @@
   width: 100%;
 }
 
-.featureSvg {
-  height: 150px;
-  width: 150px;
-}
-
 .features :global(.col) {
   margin-bottom: 1.4rem;
 }
